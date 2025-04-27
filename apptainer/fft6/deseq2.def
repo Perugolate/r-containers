@@ -1,0 +1,12 @@
+Bootstrap: docker
+From: rocker/r-ver:4.4.1
+
+%post
+# Install zlib development headers
+apt-get update && apt-get install -y zlib1g-dev libhts-dev libbz2-dev
+Rscript -e 'install.packages(c("BiocManager", "ggplot2", "readr", "dplyr", "cowplot", "RColorBrewer", "tidyr", "ggsignif", "pheatmap", "ashr"))'
+Rscript -e 'BiocManager::install(version = "3.20")'
+Rscript -e 'BiocManager::install(c("tximport", "DESeq2", "IHW"))'
+
+%environment
+PATH /usr/local/bin:$PATH
