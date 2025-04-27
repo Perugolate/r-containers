@@ -9,6 +9,11 @@ RUN apt-get update && apt-get install -y \
     libpng-dev \
     libxml2-dev
 
+# Configure readline history search
+RUN echo '"\e[A":history-search-backward' >> /root/.inputrc && \
+    echo '"\e[B":history-search-forward' >> /root/.inputrc && \
+    echo '"\e.":yank-last-arg' >> /root/.inputrc
+
 # Install R packages
 RUN Rscript -e 'install.packages(c("BiocManager", "ggplot2", "readr", "dplyr", "cowplot", "RColorBrewer", "tidyr", "ggsignif", "pheatmap", "ashr"))'
 
